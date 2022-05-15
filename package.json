@@ -2,6 +2,10 @@
   "name": "root",
   "private": true,
   "version": "independent",
+  "scripts": {
+    "frontend:dev": "lerna run start --scope secure-coinflip-frontend --stream",
+    "blockchain:deploy": "lerna run deploy:rinkeby --scope secure-coinflip-blockchain --stream"
+  },
   "devDependencies": {
     "lerna": "^4.0.0"
   }
