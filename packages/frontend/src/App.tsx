@@ -8,7 +8,6 @@ import {
     useSigner,
 } from "wagmi"
 import { InjectedConnector } from "wagmi/connectors/injected"
-import { useContract } from "wagmi"
 import CoinflipContract from "secure-coinflip-blockchain/deployments/rinkeby/CoinflipV3.json"
 
 function App() {
@@ -18,11 +17,6 @@ function App() {
     })
     const { data: signer } = useSigner()
     const { disconnect } = useDisconnect()
-    const contract = useContract({
-        addressOrName: CoinflipContract.address,
-        contractInterface: CoinflipContract.abi,
-        signerOrProvider: signer,
-    })
 
     useContractEvent(
         {
