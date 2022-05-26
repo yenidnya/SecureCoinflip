@@ -1,0 +1,6 @@
+lerna-debug.log
+yarn.lock
+packages/backend/db.stormdb
+packages/blockchain/package-lock.json
+.gitignore
+packages/frontend/package-lock.json

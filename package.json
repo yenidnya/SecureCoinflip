@@ -4,7 +4,8 @@
   "version": "independent",
   "scripts": {
     "frontend:dev": "lerna run start --scope secure-coinflip-frontend --stream",
-    "blockchain:deploy": "lerna run deploy:rinkeby --scope secure-coinflip-blockchain --stream"
+    "blockchain:deploy": "lerna run deploy:rinkeby --scope secure-coinflip-blockchain --stream",
+    "backend:dev": "lerna run dev --scope secure-coinflip-backend --stream"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
