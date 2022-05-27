@@ -6,9 +6,11 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader"
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader"
 import * as THREE from "three"
 
-export const CoinPrimative: React.FunctionComponent = () => {
+export const CoinPrimative: React.FunctionComponent<{ speed?: number }> = ({ speed = 0.02 }) => {
     const ref = useRef<Mesh>(null!)
-    useFrame((state, delta) => (ref.current.rotation.x += 0.02))
+    useFrame((state, delta) => {
+        ref.current.rotation.x += speed
+    })
     useThree(({ camera }) => {
         camera.position.set(0, 0, 6)
     })
@@ -41,10 +43,10 @@ export const CoinPrimative: React.FunctionComponent = () => {
     )
 }
 
-const Coin: React.FunctionComponent = () => {
+const Coin: React.FunctionComponent<{ spinSpeed?: number }> = ({ spinSpeed }) => {
     return (
         <Canvas>
-            <CoinPrimative />
+            <CoinPrimative speed={spinSpeed} />
         </Canvas>
     )
 }
