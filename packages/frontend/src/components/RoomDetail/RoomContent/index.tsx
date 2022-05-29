@@ -1,5 +1,5 @@
 import { Row, Col, Button, Modal, Spin, Space } from "antd"
-import React, { useContext, useEffect, useRef, useState } from "react"
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { useSigner, useContractEvent, useContractRead, useContractWrite } from "wagmi"
 import { AppContext } from "../../../store"
 import Coin from "../../Coin"
@@ -19,6 +19,16 @@ const RoomContent: React.FunctionComponent<RoomProps> = ({ room }) => {
 
     const p1ColRef = useRef<HTMLDivElement>(null!)
     const p2ColRef = useRef<HTMLDivElement>(null!)
+
+    const requestedRandomWordsListener = useCallback(
+        (roomId: string) => {
+            if (roomId === room.id) {
+                setModalText("Requesting for random number...")
+                setModal(true)
+            }
+        },
+        [room.id]
+    )
 
     useEffect(() => {
         return () => {
@@ -83,12 +93,18 @@ const RoomContent: React.FunctionComponent<RoomProps> = ({ room }) => {
         {
             onSettled(e, error) {
                 if (!error) {
-                    setModalText("Requesting for random number...")
-                    setModal(true)
+                    state.socket?.emit("requestRandomWords", room.id)
                 }
             },
         }
     )
+
+    useEffect(() => {
+        state?.socket?.on("requestRandomWords", requestedRandomWordsListener)
+        return () => {
+            state?.socket?.off("requestRandomWords", requestedRandomWordsListener)
+        }
+    }, [requestedRandomWordsListener, state?.socket])
 
     return (
         <>

@@ -57,6 +57,10 @@ io.on("connection", (socket) => {
       io.sockets.emit("roomRemoved", roomId);
     }
   });
+
+  socket.on("requestRandomWords", (roomId: string) => {
+    io.sockets.emit("requestRandomWords", roomId);
+  });
 });
 
 server.listen(3001, () => {
